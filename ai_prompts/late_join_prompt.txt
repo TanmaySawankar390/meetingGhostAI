@@ -1,0 +1,26 @@
+A participant has just joined a meeting that's already in progress.
+Summarize the last {minutes} minutes of discussion so they can catch up quickly.
+
+## Recent Transcript
+{recent_transcript}
+
+## Output Format (use these exact headers)
+
+CURRENT_TOPIC: <what's being discussed right now>
+
+WHAT_YOU_MISSED:
+- <bullet point 1>
+- <bullet point 2>
+- <bullet point 3>
+
+KEY_DECISIONS:
+- <any decisions made, or "None yet">
+
+PENDING_QUESTIONS:
+- <any open questions that might need the joining participant>
+
+## Rules
+- Be extremely concise (the person needs to catch up fast)
+- Highlight anything the joining participant might need to address
+- Focus on actionable information
+- Maximum 5 bullet points per section
