@@ -33,6 +33,11 @@ class Settings(BaseSettings):
     deepgram_model: str = Field(default="nova-3", description="Deepgram model: nova-3, nova-2, etc.")
     deepgram_language: str = Field(default="en", description="Deepgram language code")
 
+    # ── LiveKit ──────────────────────────────────────────
+    livekit_api_key: str = Field(default="devkey", description="LiveKit API Key")
+    livekit_api_secret: str = Field(default="secret", description="LiveKit API Secret")
+    livekit_url: str = Field(default="ws://livekit:7880", description="LiveKit WebSocket URL")
+
     # ── Database ─────────────────────────────────────────
     database_url: str = Field(
         default="postgresql://postgres:postgres@localhost:5432/meetingghost",

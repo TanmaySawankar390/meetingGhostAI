@@ -12,6 +12,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from routers import meeting_rooms
 from meeting_listener import MeetingListener
 from summary_generator import SummaryGenerator
 from meeting_memory import shared_memory
@@ -54,6 +55,9 @@ app = FastAPI(
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True,
                    allow_methods=["*"], allow_headers=["*"])
+
+# Include routers
+app.include_router(meeting_rooms.router)
 
 # ═══════════════════════════════════════════════════════
 # WebSocket Endpoints

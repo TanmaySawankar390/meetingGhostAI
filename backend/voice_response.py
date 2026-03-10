@@ -69,16 +69,7 @@ class VoiceResponseService:
         use_ssml: bool = True,
     ) -> str:
         """
-        Convert text to speech.
-
-        Args:
-            text: The text to synthesize
-            voice_id: Override default voice (e.g., "Matthew", "Joanna")
-            speech_rate: Speed — "x-slow", "slow", "medium", "fast", "x-fast"
-            use_ssml: Whether to wrap in SSML for enhanced prosody
-
-        Returns:
-            base64-encoded audio data (MP3 format)
+        Convert text to speech (Base64 MP3 for WebSockets).
         """
         if not text or not text.strip():
             logger.warning("Empty text provided for synthesis.")
@@ -87,9 +78,29 @@ class VoiceResponseService:
         voice = voice_id or self.voice_id
 
         if self.use_aws:
-            return await self._synthesize_polly(text, voice, speech_rate, use_ssml)
+            return await self._synthesize_polly(text, voice, speech_rate, use_ssml, format="mp3")
         else:
-            return self._synthesize_local(text)
+            return self._synthesize_local(text, as_wav=True)
+
+    async def synthesize_pcm(
+        self,
+        text: str,
+        voice_id: Optional[str] = None,
+        speech_rate: str = "medium",
+        use_ssml: bool = True,
+    ) -> bytes:
+        """
+        Convert text to speech (Raw 16kHz PCM for LiveKit WebRTC).
+        """
+        if not text or not text.strip():
+            return b""
+            
+        voice = voice_id or self.voice_id
+
+        if self.use_aws:
+            return await self._synthesize_polly_bytes(text, voice, speech_rate, use_ssml, format="pcm", sample_rate="16000")
+        else:
+            return self._synthesize_local_bytes(text)
 
     async def _synthesize_polly(
         self,
@@ -97,8 +108,22 @@ class VoiceResponseService:
         voice_id: str,
         speech_rate: str,
         use_ssml: bool,
+        format: str = "mp3"
     ) -> str:
-        """Synthesize speech using Amazon Polly."""
+        """Synthesize speech using Amazon Polly and return base64 string."""
+        audio_bytes = await self._synthesize_polly_bytes(text, voice_id, speech_rate, use_ssml, format)
+        return base64.b64encode(audio_bytes).decode("utf-8") if audio_bytes else ""
+        
+    async def _synthesize_polly_bytes(
+        self,
+        text: str,
+        voice_id: str,
+        speech_rate: str,
+        use_ssml: bool,
+        format: str = "mp3",
+        sample_rate: Optional[str] = None
+    ) -> bytes:
+        """Synthesize speech using Amazon Polly and return raw bytes."""
         try:
             if use_ssml:
                 ssml_text = self._build_ssml(text, speech_rate)
@@ -108,30 +133,32 @@ class VoiceResponseService:
                 text_type = "text"
                 synthesis_text = text
 
-            response = self.polly.synthesize_speech(
-                Text=synthesis_text,
-                TextType=text_type,
-                OutputFormat=self.output_format,
-                VoiceId=voice_id,
-                Engine="neural",  # Neural voices are more natural
-            )
+            kwargs = {
+                "Text": synthesis_text,
+                "TextType": text_type,
+                "OutputFormat": format,
+                "VoiceId": voice_id,
+                "Engine": "neural"
+            }
+            if sample_rate:
+                kwargs["SampleRate"] = sample_rate
 
-            audio_bytes = response["AudioStream"].read()
-            return base64.b64encode(audio_bytes).decode("utf-8")
+            response = self.polly.synthesize_speech(**kwargs)
+            return response["AudioStream"].read()
 
         except ClientError as e:
             error_code = e.response["Error"]["Code"]
             if error_code == "TextLengthExceededException":
                 logger.warning("Text too long for Polly. Truncating.")
-                return await self._synthesize_polly(
-                    text[:2900], voice_id, speech_rate, use_ssml
+                return await self._synthesize_polly_bytes(
+                    text[:2900], voice_id, speech_rate, use_ssml, format, sample_rate
                 )
             logger.error(f"Polly synthesis error: {e}")
-            return self._synthesize_local(text)
+            return self._synthesize_local_bytes(text) if format == "pcm" else self._synthesize_local_bytes(text, as_wav=True)
 
         except Exception as e:
             logger.error(f"TTS error: {e}")
-            return self._synthesize_local(text)
+            return self._synthesize_local_bytes(text) if format == "pcm" else self._synthesize_local_bytes(text, as_wav=True)
 
     def _build_ssml(self, text: str, rate: str = "medium") -> str:
         """
@@ -163,11 +190,17 @@ class VoiceResponseService:
             f"</speak>"
         )
 
-    def _synthesize_local(self, text: str) -> str:
+    def _synthesize_local(self, text: str, as_wav: bool = True) -> str:
+        """Returns base64 encoded audio for local fallback."""
+        raw_audio = self._synthesize_local_bytes(text)
+        if as_wav:
+            wav_data = self._create_wav(raw_audio, 16000)
+            return base64.b64encode(wav_data).decode("utf-8")
+        return base64.b64encode(raw_audio).decode("utf-8")
+
+    def _synthesize_local_bytes(self, text: str) -> bytes:
         """
-        Generate a simple audio placeholder locally.
-        Produces a short sine wave tone as a speech indicator
-        for development without AWS Polly.
+        Generate a simple audio placeholder locally (raw PCM bytes).
         """
         sample_rate = 16000
         duration = min(len(text) * 0.05, 5.0)  # ~50ms per character, max 5s
@@ -185,11 +218,7 @@ class VoiceResponseService:
             )
             audio_data.append(struct.pack("<h", max(-32768, min(32767, sample))))
 
-        raw_audio = b"".join(audio_data)
-
-        # Create a minimal WAV file
-        wav_data = self._create_wav(raw_audio, sample_rate)
-        return base64.b64encode(wav_data).decode("utf-8")
+        return b"".join(audio_data)
 
     def _create_wav(self, raw_audio: bytes, sample_rate: int) -> bytes:
         """Create a minimal WAV file from raw PCM data."""

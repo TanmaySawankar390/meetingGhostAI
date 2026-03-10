@@ -34,8 +34,8 @@ class ReasoningEngine:
     4. Provide a confidence score and reasoning
     """
 
-    def __init__(self):
-        self.user_name = settings.user_name
+    def __init__(self, user_name: Optional[str] = None):
+        self.user_name = user_name or settings.user_name
         self.model_id = settings.llm_model_id
         self.max_tokens = settings.max_response_tokens
         self.temperature = settings.llm_temperature
