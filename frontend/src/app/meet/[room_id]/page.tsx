@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useParams, useSearchParams, useRouter } from 'next/navigation';
 import {
     LiveKitRoom,
@@ -11,7 +11,7 @@ import '@livekit/components-styles';
 import { Loader2 } from 'lucide-react';
 import AiControlPanel from '@/components/AiControlPanel';
 
-export default function MeetingRoom() {
+function MeetingRoomContent() {
     const params = useParams();
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -45,42 +45,57 @@ export default function MeetingRoom() {
 
     if (error) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-neutral-950 text-white p-4">
-                <h1 className="text-2xl font-bold text-red-500 mb-4">Connection Error</h1>
-                <p className="text-neutral-400 mb-6">{error}</p>
-                <button
-                    onClick={() => router.push('/meet')}
-                    className="px-4 py-2 bg-white text-black rounded-md font-medium"
-                >
-                    Return to Lobby
-                </button>
+            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-gray-900 p-4">
+                <div className="bg-white p-8 rounded-2xl shadow-floating border border-gray-100 max-w-md w-full text-center">
+                    <h1 className="text-2xl font-bold text-gray-900 mb-2">Connection Error</h1>
+                    <p className="text-gray-500 mb-8">{error}</p>
+                    <button
+                        onClick={() => router.push('/meet')}
+                        className="px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition"
+                    >
+                        Return to Lobby
+                    </button>
+                </div>
             </div>
         );
     }
 
     if (token === '') {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-neutral-950 text-white">
-                <Loader2 className="w-8 h-8 animate-spin text-neutral-400 mb-4" />
-                <p>Generating secure access token...</p>
+            <div className="flex flex-col items-center justify-center min-h-screen bg-[#0f172a] text-white">
+                <Loader2 className="w-10 h-10 animate-spin text-blue-500 mb-6" />
+                <p className="text-lg font-medium text-gray-300">Generating secure access...</p>
             </div>
         );
     }
 
     return (
-        <LiveKitRoom
-            video={true}
-            audio={true}
-            token={token}
-            serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL || "ws://localhost:7880"}
-            data-lk-theme="default"
-            style={{ height: '100vh', backgroundColor: '#0a0a0a' }}
-            onDisconnected={() => router.push('/meet')}
-        >
-            <VideoConference />
-            <RoomAudioRenderer />
+        <div className="relative w-full h-screen bg-[#0f172a] overflow-hidden">
+            <LiveKitRoom
+                video={true}
+                audio={true}
+                token={token}
+                serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL || "ws://localhost:7880"}
+                data-lk-theme="default"
+                style={{ height: '100%', width: '100%', position: 'absolute', top: 0, left: 0 }}
+                onDisconnected={() => router.push(`/meet/end?room=${roomName}&name=${encodeURIComponent(userName)}`)}
+            >
+                <VideoConference SettingsComponent={() => <AiControlPanel roomName={roomName} userName={userName} />} />
+                <RoomAudioRenderer />
+            </LiveKitRoom>
+        </div>
+    );
+}
 
-            <AiControlPanel roomName={roomName} userName={userName} />
-        </LiveKitRoom>
+export default function MeetingRoom() {
+    return (
+        <Suspense fallback={
+            <div className="flex flex-col items-center justify-center min-h-screen bg-[#0f172a] text-white">
+                <Loader2 className="w-10 h-10 animate-spin text-blue-500 mb-6" />
+                <p className="text-lg font-medium text-gray-300">Loading meeting room...</p>
+            </div>
+        }>
+            <MeetingRoomContent />
+        </Suspense>
     );
 }

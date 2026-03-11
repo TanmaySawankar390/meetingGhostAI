@@ -1,30 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
 
-:root {
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #12121a;
-  --bg-card: #1a1a2e;
-  --bg-card-hover: #1f1f35;
-  --border-color: #2a2a40;
-  --text-primary: #f0f0f5;
-  --text-secondary: #8888a0;
-  --accent-purple: #8b5cf6;
-  --accent-blue: #3b82f6;
-  --accent-cyan: #06b6d4;
-  --accent-green: #10b981;
-  --accent-amber: #f59e0b;
-  --accent-rose: #f43f5e;
-  --gradient-1: linear-gradient(135deg, #8b5cf6, #3b82f6);
-  --gradient-2: linear-gradient(135deg, #06b6d4, #10b981);
-  --gradient-3: linear-gradient(135deg, #f43f5e, #f59e0b);
+@theme {
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  
+  --color-surface-50: #f8fafc;
+  --color-surface-100: #f1f5f9;
+  --color-surface-200: #e2e8f0;
+  --color-surface-800: #1e293b;
+  --color-surface-900: #0f172a;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+  --border-color: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --accent-blue: #2563eb;
+  --accent-blue-hover: #1d4ed8;
+  --accent-red: #ef4444;
+  --accent-green: #10b981;
+  
+  --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-floating: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --bg-card-hover: #334155;
+  --border-color: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --shadow-floating: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
 }
 
 body {
@@ -40,98 +57,58 @@ body {
   width: 6px;
   height: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
+  background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
   background: var(--border-color);
   border-radius: 3px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-purple);
+  background: var(--text-secondary);
 }
 
 /* Glassmorphism utilities */
 .glass {
-  background: rgba(26, 26, 46, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-.glass-strong {
-  background: rgba(26, 26, 46, 0.85);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+.dark .glass {
+  background: rgba(30, 41, 59, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Glow effects */
-.glow-purple {
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.15), 0 0 60px rgba(139, 92, 246, 0.05);
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-floating);
 }
 
-.glow-blue {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.15), 0 0 60px rgba(59, 130, 246, 0.05);
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.glow-green {
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15), 0 0 60px rgba(16, 185, 129, 0.05);
+/* Utilities */
+.shadow-subtle {
+  box-shadow: var(--shadow-subtle);
 }
 
-/* Gradient text */
-.gradient-text {
-  background: var(--gradient-1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Pulse animation for active indicators */
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.8);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-
-.pulse-dot::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: var(--accent-green);
-  animation: pulse-ring 1.5s ease-out infinite;
-}
-
-/* Line animation for audio visualizer */
-@keyframes wave {
-
-  0%,
-  100% {
-    height: 4px;
-  }
-
-  50% {
-    height: 20px;
-  }
+.shadow-floating {
+  box-shadow: var(--shadow-floating);
 }
 
 /* Fade in animation */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -139,5 +116,233 @@ body {
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.5s ease-out forwards;
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ------------------------------------------------------------------
+   LiveKit Overrides for Modern SaaS Look (Google Meet Style)
+   ------------------------------------------------------------------ */
+.lk-video-conference {
+  background-color: var(--color-surface-900) !important;
+}
+
+.lk-control-bar {
+  position: absolute !important;
+  bottom: 32px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  border-radius: 100px !important;
+  padding: 12px 16px !important;
+  width: auto !important;
+  max-width: 90% !important;
+  background: rgba(15, 23, 42, 0.85) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  z-index: 40 !important;
+}
+
+/* Main button style */
+.lk-button {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 100px !important;
+  padding: 10px 20px !important;
+  color: white !important;
+  transition: all 0.2s ease !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  cursor: pointer !important;
+}
+
+.lk-button:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  transform: translateY(-1px);
+}
+
+.lk-button:active {
+  transform: translateY(0);
+}
+
+/* Button groups (e.g., Mic + Dropdown) */
+.lk-button-group {
+  display: flex !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 100px !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  overflow: hidden !important;
+}
+
+.lk-button-group-menu {
+  border-radius: 16px !important;
+  background: rgba(15, 23, 42, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(24px) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+.lk-button-group-menu > .lk-button {
+  border-radius: 0 !important;
+  padding: 12px 20px !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  background: transparent !important;
+}
+
+.lk-button-group-menu > .lk-button:last-child {
+  border-bottom: none !important;
+}
+
+.lk-button-group-menu > .lk-button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Remove default backgrounds/borders from buttons inside a group */
+.lk-button-group > .lk-button {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+}
+
+/* Separate the button and the arrow slightly */
+.lk-button-group > .lk-button:first-child {
+  padding: 10px 14px 10px 20px !important;
+}
+
+.lk-button-group > .lk-button:last-child {
+  padding: 10px 14px 10px 10px !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.lk-button-group > .lk-button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Active states (e.g. Mic On/Off) - LiveKit uses data-state or class based on state often, but let's cover disconnect explicitly */
+.lk-disconnect-button {
+  background: #ef4444 !important;
+  border-radius: 100px !important;
+  padding: 10px 24px !important;
+  font-weight: 600 !important;
+  border: 1px solid #dc2626 !important;
+}
+
+.lk-disconnect-button:hover {
+  background: #dc2626 !important;
+}
+
+.lk-chat {
+  background: rgba(15, 23, 42, 0.85) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  margin: 16px 16px 100px 16px !important; /* Leave space for bottom control bar */
+  height: calc(100% - 130px) !important;
+  overflow: hidden !important;
+  color: white !important;
+}
+
+.lk-chat-header {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.lk-chat-messages {
+  background: transparent !important;
+}
+
+.lk-chat-entry {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  margin: 12px !important;
+}
+
+.lk-chat-form-input, .lk-chat-entry input {
+  color: white !important;
+  background: transparent !important;
+}
+
+.lk-chat-form-input::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.lk-chat-entry button {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  transition: all 0.2s;
+}
+
+.lk-chat-entry button:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Chat bubble overrides */
+.lk-chat-message-body {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.lk-chat-message-metadata {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.lk-participant-list {
+  background: rgba(15, 23, 42, 0.85) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  margin: 16px 16px 100px 16px !important;
+  height: calc(100% - 130px) !important;
+  overflow: hidden !important;
+  color: white !important;
+}
+
+.lk-participant-list-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: transparent !important;
+  color: white !important;
+}
+
+.lk-device-menu, .lk-settings-menu {
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(24px) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+}
+
+.lk-settings-menu-modal {
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(24px) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.lk-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.lk-participant-tile {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
 }

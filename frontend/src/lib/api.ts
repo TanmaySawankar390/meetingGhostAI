@@ -19,11 +19,12 @@ export interface TranscriptEntry {
 }
 
 export interface MeetingSummary {
-    summary: string;
-    key_points: string[];
-    decisions: string[];
-    action_items: { task: string; assignee?: string; deadline?: string; priority?: string }[];
-    topics_discussed: string[];
+    summary?: string;
+    executive_summary?: string;
+    key_points?: string[];
+    decisions?: string[];
+    action_items?: string[];
+    topics_discussed?: string[];
     duration_minutes?: number;
     participant_count?: number;
 }

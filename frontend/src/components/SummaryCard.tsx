@@ -38,11 +38,11 @@ export default function SummaryCard({ summary, loading }: Props) {
                 <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
                     <span className="text-xl">📋</span> Summary
                 </h3>
-                <p className="text-sm text-gray-300 leading-relaxed">{summary.summary || "N/A"}</p>
+                <p className="text-sm text-gray-300 leading-relaxed">{summary.summary || summary.executive_summary || "N/A"}</p>
             </div>
 
             {/* Key Points */}
-            {summary.key_points?.length > 0 && (
+            {summary.key_points && summary.key_points.length > 0 && (
                 <div>
                     <h4 className="text-sm font-semibold text-amber-400 mb-2 flex items-center gap-2">
                         <span>💡</span> Key Points
@@ -58,7 +58,7 @@ export default function SummaryCard({ summary, loading }: Props) {
             )}
 
             {/* Decisions */}
-            {summary.decisions?.length > 0 && (
+            {summary.decisions && summary.decisions.length > 0 && (
                 <div>
                     <h4 className="text-sm font-semibold text-green-400 mb-2 flex items-center gap-2">
                         <span>✅</span> Decisions
@@ -74,7 +74,7 @@ export default function SummaryCard({ summary, loading }: Props) {
             )}
 
             {/* Action Items */}
-            {summary.action_items?.length > 0 && (
+            {summary.action_items && summary.action_items.length > 0 && (
                 <div>
                     <h4 className="text-sm font-semibold text-blue-400 mb-2 flex items-center gap-2">
                         <span>🎯</span> Action Items
@@ -82,17 +82,7 @@ export default function SummaryCard({ summary, loading }: Props) {
                     <div className="space-y-2">
                         {summary.action_items.map((item, i) => (
                             <div key={i} className="bg-white/[0.03] rounded-lg p-3 text-sm">
-                                <p className="text-gray-200 font-medium">{item.task}</p>
-                                <div className="flex gap-3 mt-1 text-xs text-gray-500">
-                                    {item.assignee && <span>👤 {item.assignee}</span>}
-                                    {item.deadline && <span>📅 {item.deadline}</span>}
-                                    {item.priority && (
-                                        <span className={`px-1.5 py-0.5 rounded ${item.priority === "high" ? "bg-rose-500/20 text-rose-300" :
-                                                item.priority === "medium" ? "bg-amber-500/20 text-amber-300" :
-                                                    "bg-gray-500/20 text-gray-400"
-                                            }`}>{item.priority}</span>
-                                    )}
-                                </div>
+                                <p className="text-gray-200 font-medium">{typeof item === 'string' ? item : (item as any).task}</p>
                             </div>
                         ))}
                     </div>

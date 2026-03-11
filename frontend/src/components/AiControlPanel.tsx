@@ -204,44 +204,53 @@ export default function AiControlPanel({ roomName, userName }: AiControlPanelPro
     };
 
     return (
-        <div className="absolute top-4 right-4 bg-neutral-900 border border-neutral-800 rounded-lg p-4 shadow-xl w-80 text-white z-50">
-            <h3 className="font-bold mb-4 flex items-center gap-2">
-                <span className={`w-2 h-2 rounded-full ${aiActive ? 'bg-red-500 animate-pulse' : 'bg-green-500'}`}></span>
+        <div className="flex flex-col gap-4 p-4 w-[350px] max-w-[90vw] text-gray-900">
+            <h3 className="text-xl font-bold flex items-center gap-2 mb-2">
+                <span className={`w-3 h-3 rounded-full ${aiActive ? 'bg-red-500 animate-pulse box-shadow-red' : 'bg-green-500 box-shadow-green'}`}></span>
                 Meeting Ghost AI
             </h3>
 
-            <div className="space-y-4">
-                <p className="text-xs text-neutral-400">
+            <div className="space-y-5">
+                <p className="text-sm text-gray-600 leading-relaxed">
                     {aiActive
-                        ? "AI is active! It has taken over your microphone. You can leave your camera on."
-                        : "Have the AI proxy seamlessly take over your identity to listen and speak for you."}
+                        ? "AI is active and connected! It has taken over your microphone. You can leave your camera on."
+                        : "Have the AI proxy seamlessly take over your identity to listen and speak securely during this meeting."}
                 </p>
 
                 <button
                     onClick={toggleAi}
-                    className={`w-full py-2 px-4 rounded-md font-medium transition-colors ${aiActive
-                        ? 'bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500/20'
-                        : 'bg-white text-black hover:bg-neutral-200'
+                    className={`w-full py-3 px-4 rounded-xl font-semibold transition-all shadow-sm flex items-center justify-center gap-2 ${aiActive
+                        ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 hover:border-red-300'
+                        : 'bg-blue-600 text-white border border-blue-600 hover:bg-blue-700 hover:border-blue-700'
                         }`}
                 >
-                    {aiActive ? 'Disable AI Proxy' : 'Enable AI Takeover'}
+                    {aiActive ? 'Disconnect AI Proxy' : 'Enable AI Takeover'}
                 </button>
 
-                <hr className="border-neutral-800" />
+                <div className="relative py-2">
+                    <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t border-gray-200" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-white px-3 text-gray-400 font-bold tracking-wider">Summary</span>
+                    </div>
+                </div>
 
                 <button
                     onClick={getSummary}
                     disabled={isSummaryLoading}
-                    className="w-full py-2 px-4 rounded-md font-medium bg-neutral-800 text-neutral-200 hover:bg-neutral-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full py-3 px-4 rounded-xl font-semibold bg-gray-50 border border-gray-200 text-gray-800 hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                 >
-                    {isSummaryLoading && <Loader2 className="w-4 h-4 animate-spin" />}
-                    Get Discussion Summary
+                    {isSummaryLoading && <Loader2 className="w-4 h-4 animate-spin text-gray-500" />}
+                    Get Live Discussion Summary
                 </button>
 
                 {summary && (
-                    <div className="mt-4 p-3 bg-neutral-950 rounded border border-neutral-800 text-sm h-48 overflow-y-auto">
-                        <h4 className="font-medium text-neutral-400 mb-2">Discussion Summary</h4>
-                        <p className="whitespace-pre-wrap">{summary}</p>
+                    <div className="mt-2 p-4 bg-blue-50/50 rounded-xl border border-blue-100 text-sm max-h-60 overflow-y-auto shadow-inner">
+                        <h4 className="font-semibold text-blue-900 mb-2 flex items-center gap-1.5">
+                            <span className="text-blue-500">📝</span> Latest Notes
+                        </h4>
+                        <p className="whitespace-pre-wrap text-gray-700 leading-relaxed">{summary}</p>
                     </div>
                 )}
             </div>
