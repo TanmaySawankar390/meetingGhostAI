@@ -207,7 +207,7 @@ export default function AiControlPanel({ roomName, userName }: AiControlPanelPro
         <div className="flex flex-col gap-4 p-4 w-[350px] max-w-[90vw] text-gray-900">
             <h3 className="text-xl font-bold flex items-center gap-2 mb-2">
                 <span className={`w-3 h-3 rounded-full ${aiActive ? 'bg-red-500 animate-pulse box-shadow-red' : 'bg-green-500 box-shadow-green'}`}></span>
-                Meeting Ghost AI
+                bolchal.ai Ghost
             </h3>
 
             <div className="space-y-5">
@@ -221,7 +221,7 @@ export default function AiControlPanel({ roomName, userName }: AiControlPanelPro
                     onClick={toggleAi}
                     className={`w-full py-3 px-4 rounded-xl font-semibold transition-all shadow-sm flex items-center justify-center gap-2 ${aiActive
                         ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 hover:border-red-300'
-                        : 'bg-blue-600 text-white border border-blue-600 hover:bg-blue-700 hover:border-blue-700'
+                        : 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white border border-teal-600 hover:from-cyan-700 hover:to-teal-700 hover:border-teal-700'
                         }`}
                 >
                     {aiActive ? 'Disconnect AI Proxy' : 'Enable AI Takeover'}
@@ -246,9 +246,9 @@ export default function AiControlPanel({ roomName, userName }: AiControlPanelPro
                 </button>
 
                 {summary && (
-                    <div className="mt-2 p-4 bg-blue-50/50 rounded-xl border border-blue-100 text-sm max-h-60 overflow-y-auto shadow-inner">
-                        <h4 className="font-semibold text-blue-900 mb-2 flex items-center gap-1.5">
-                            <span className="text-blue-500">📝</span> Latest Notes
+                    <div className="mt-2 p-4 bg-teal-50/50 rounded-xl border border-teal-100 text-sm max-h-60 overflow-y-auto shadow-inner">
+                        <h4 className="font-semibold text-teal-900 mb-2 flex items-center gap-1.5">
+                            <span className="text-teal-500">📝</span> Latest Notes
                         </h4>
                         <p className="whitespace-pre-wrap text-gray-700 leading-relaxed">{summary}</p>
                     </div>

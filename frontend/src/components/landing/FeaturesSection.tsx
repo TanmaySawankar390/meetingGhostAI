@@ -9,7 +9,7 @@ const features = [
     description:
       "Crystal clear 1080p video and noise-canceling audio to make every meeting feel like you're in the same room.",
     icon: Video,
-    color: "bg-blue-100 text-blue-600",
+    color: "bg-cyan-100 text-cyan-600",
     delay: 0.1,
   },
   {
@@ -17,7 +17,7 @@ const features = [
     description:
       "Share your entire screen, a specific window, or a single browser tab instantly with zero lag.",
     icon: MonitorUp,
-    color: "bg-purple-100 text-purple-600",
+    color: "bg-teal-100 text-teal-600",
     delay: 0.2,
   },
   {
@@ -33,7 +33,7 @@ const features = [
     description:
       "Record your meetings automatically. Get AI-generated summaries and action items sent straight to your inbox.",
     icon: AudioLines,
-    color: "bg-rose-100 text-rose-600",
+    color: "bg-green-100 text-green-600",
     delay: 0.4,
   },
 ];
@@ -50,7 +50,7 @@ export default function FeaturesSection() {
             className="text-3xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight"
           >
             Everything you need for <br className="hidden sm:block" />
-            <span className="text-blue-600">perfect meetings</span>
+            <span className="bg-gradient-to-r from-cyan-600 to-emerald-600 bg-clip-text text-transparent">perfect meetings</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

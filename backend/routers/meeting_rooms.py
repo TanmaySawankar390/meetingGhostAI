@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from typing import Optional, Dict
 import asyncio
 import uuid
+from datetime import timedelta
 from livekit import api
 from config import settings
 from livekit_agent import start_agent_for_room, stop_agent_for_room, get_active_agents
@@ -87,7 +88,7 @@ async def create_meeting(req: CreateMeetingRequest):
             can_subscribe=True,
             room_create=True,
         )
-    ).to_jwt()
+    ).with_ttl(timedelta(hours=6)).to_jwt()
     
     return CreateMeetingResponse(
         room_name=room_name,
@@ -118,7 +119,7 @@ async def join_meeting(req: JoinMeetingRequest):
             can_publish_data=True,
             can_subscribe=True,
         )
-    ).to_jwt()
+    ).with_ttl(timedelta(hours=6)).to_jwt()
     
     return JoinMeetingResponse(token=token)
 

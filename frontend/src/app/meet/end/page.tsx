@@ -51,27 +51,27 @@ function MeetingEndScreenContent() {
         transition={{ duration: 0.4 }}
         className="w-full max-w-2xl bg-white rounded-3xl shadow-floating border border-gray-100 p-8 md:p-12 overflow-hidden relative"
       >
-        <div className="absolute top-0 left-0 w-full h-2 bg-blue-600" />
+        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-500 to-teal-500" />
         
         <div className="flex flex-col items-center text-center mb-10">
           <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
             <CheckCircle className="w-8 h-8" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2 tracking-tight">You left the meeting</h1>
-          <p className="text-gray-500">Thank you for using Meeting Ghost. Your session has ended securely.</p>
+          <p className="text-gray-500">Thank you for using bolchal.ai. Your session has ended securely.</p>
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <button
             onClick={handleRejoin}
-            className="w-full sm:w-auto px-6 py-3 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 hover:text-blue-600 transition-colors flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-6 py-3 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 hover:text-teal-600 transition-colors flex items-center justify-center gap-2"
           >
             <RefreshCcw className="w-4 h-4" />
             Rejoin
           </button>
           <button
             onClick={handleGoHome}
-            className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-sm"
+            className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-cyan-600 to-teal-600 text-white font-semibold rounded-xl hover:from-cyan-700 hover:to-teal-700 transition-colors flex items-center justify-center gap-2 shadow-sm"
           >
             Return to home
           </button>
@@ -80,12 +80,12 @@ function MeetingEndScreenContent() {
         <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
           <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-200">
             <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-blue-600" />
+              <FileText className="w-5 h-5 text-teal-600" />
               Meeting Summary
             </h2>
             <div className="flex gap-2">
               <button 
-                className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                className="p-2 text-gray-400 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-colors"
                 title="Download Recording"
               >
                 <Download className="w-4 h-4" />
@@ -96,7 +96,7 @@ function MeetingEndScreenContent() {
           <div className="min-h-[150px]">
             {loading ? (
               <div className="flex flex-col items-center justify-center h-full text-gray-400 py-8">
-                <Loader2 className="w-6 h-6 animate-spin mb-3 text-blue-600" />
+                <Loader2 className="w-6 h-6 animate-spin mb-3 text-teal-600" />
                 <p className="text-sm">Generating AI summary...</p>
               </div>
             ) : summary ? (
@@ -136,7 +136,7 @@ export default function MeetingEndScreen() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600 mb-4" />
+        <Loader2 className="w-8 h-8 animate-spin text-teal-600 mb-4" />
         <p className="text-gray-500">Loading screen...</p>
       </div>
     }>

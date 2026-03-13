@@ -101,7 +101,7 @@ export default function MeetLobby() {
         {/* Left Side: Camera Preview */}
         <div className="md:w-3/5 p-6 md:p-8 bg-gray-50 border-r border-gray-100 flex flex-col">
           <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-            <Video className="w-5 h-5 text-blue-600" />
+            <Video className="w-5 h-5 text-teal-600" />
             Check your audio and video
           </h2>
           
@@ -163,7 +163,7 @@ export default function MeetLobby() {
               <input
                 type="text"
                 placeholder="e.g. John Doe"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:text-gray-400 font-medium"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all placeholder:text-gray-400 font-medium"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
               />
@@ -180,7 +180,7 @@ export default function MeetLobby() {
 
             <div className="space-y-3">
               <button
-                className="w-full flex items-center justify-center px-4 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed group"
+                className="w-full flex items-center justify-center px-4 py-3.5 bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700 text-white font-semibold rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed group"
                 onClick={handleCreateRoom}
                 disabled={isCreating || isJoining}
               >
@@ -196,12 +196,12 @@ export default function MeetLobby() {
                 <input
                   type="text"
                   placeholder="Meeting ID"
-                  className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all min-w-0 placeholder:text-gray-400 font-medium"
+                  className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 text-gray-900 rounded-xl focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all min-w-0 placeholder:text-gray-400 font-medium"
                   value={roomName}
                   onChange={(e) => setRoomName(e.target.value)}
                 />
                 <button
-                  className="px-6 py-3 bg-white border border-gray-200 font-semibold text-blue-600 rounded-xl hover:bg-gray-50 hover:border-blue-200 hover:text-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shrink-0 shadow-sm"
+                  className="px-6 py-3 bg-white border border-gray-200 font-semibold text-teal-600 rounded-xl hover:bg-gray-50 hover:border-teal-200 hover:text-teal-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shrink-0 shadow-sm"
                   onClick={handleJoinRoom}
                   disabled={isCreating || isJoining}
                 >

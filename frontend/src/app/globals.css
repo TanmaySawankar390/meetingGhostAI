@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
   
   --color-surface-50: #f8fafc;
   --color-surface-100: #f1f5f9;
@@ -23,8 +23,10 @@
   --border-color: #e2e8f0;
   --text-primary: #0f172a;
   --text-secondary: #64748b;
-  --accent-blue: #2563eb;
-  --accent-blue-hover: #1d4ed8;
+  --accent-primary: #0d9488;
+  --accent-primary-hover: #0f766e;
+  --accent-blue: #0d9488;
+  --accent-blue-hover: #0f766e;
   --accent-red: #ef4444;
   --accent-green: #10b981;
   
@@ -53,6 +55,12 @@ body {
 }
 
 /* Scrollbar */
+.press-start-2p-regular {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -234,6 +242,7 @@ body {
   padding: 10px 24px !important;
   font-weight: 600 !important;
   border: 1px solid #dc2626 !important;
+  color: white !important;
 }
 
 .lk-disconnect-button:hover {

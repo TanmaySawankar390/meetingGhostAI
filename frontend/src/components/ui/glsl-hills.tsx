@@ -142,8 +142,8 @@ const GLSLHills = ({ width = '100vw', height = '100%', cameraZ = 125, planeSize 
 
               void main(void) {
                 float opacity = (96.0 - length(vPosition)) / 256.0 * 0.8;
-                // Soft blue color matching the Meeting Ghost SaaS theme
-                vec3 color = vec3(0.5, 0.7, 1.0); 
+                // Teal-green color matching the bolchal.ai logo gradient
+                vec3 color = vec3(0.05, 0.73, 0.65); 
                 gl_FragColor = vec4(color * opacity, opacity); // Premultiplied alpha
               }
             `,
