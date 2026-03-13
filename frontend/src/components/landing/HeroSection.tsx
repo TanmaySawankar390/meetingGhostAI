@@ -44,7 +44,7 @@ export default function HeroSection() {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed font-medium"
           >
-            <strong className="text-gray-900 press-start-2p-regular text-lg">bolchal.ai</strong> seamlessly proxies your presence to listen, transcribe, and summarize securely in real-time. Focus on your conversation and let AI handle the rest.
+             Focus on your conversation and let AI handle the rest.
           </motion.p>
 
           <motion.div
