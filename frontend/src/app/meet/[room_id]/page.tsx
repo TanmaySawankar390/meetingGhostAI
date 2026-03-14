@@ -4,12 +4,11 @@ import { useEffect, useState, Suspense } from 'react';
 import { useParams, useSearchParams, useRouter } from 'next/navigation';
 import {
     LiveKitRoom,
-    VideoConference,
-    RoomAudioRenderer,
 } from '@livekit/components-react';
 import '@livekit/components-styles';
 import { Loader2 } from 'lucide-react';
 import AiControlPanel from '@/components/AiControlPanel';
+import CustomVideoConference from '@/components/CustomVideoConference';
 
 function MeetingRoomContent() {
     const params = useParams();
@@ -80,8 +79,7 @@ function MeetingRoomContent() {
                 style={{ height: '100%', width: '100%', position: 'absolute', top: 0, left: 0 }}
                 onDisconnected={() => router.push(`/meet/end?room=${roomName}&name=${encodeURIComponent(userName)}`)}
             >
-                <VideoConference SettingsComponent={() => <AiControlPanel roomName={roomName} userName={userName} />} />
-                <RoomAudioRenderer />
+                <CustomVideoConference SettingsComponent={() => <AiControlPanel roomName={roomName} userName={userName} />} />
             </LiveKitRoom>
         </div>
     );

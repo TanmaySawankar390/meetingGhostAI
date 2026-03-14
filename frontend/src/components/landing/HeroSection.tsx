@@ -8,7 +8,7 @@ import bolchalLogo from "@/assets/bolchalText.png";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-gradient-to-b from-gray-200 to-white">
+    <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-gradient-to-b from-gray-100 to-white">
       {/* 3D Animated Background */}
       <GLSLHills />
 

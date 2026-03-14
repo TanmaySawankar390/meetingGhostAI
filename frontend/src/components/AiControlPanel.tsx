@@ -204,14 +204,18 @@ export default function AiControlPanel({ roomName, userName }: AiControlPanelPro
     };
 
     return (
-        <div className="flex flex-col gap-4 p-4 w-[350px] max-w-[90vw] text-gray-900">
-            <h3 className="text-xl font-bold flex items-center gap-2 mb-2">
-                <span className={`w-3 h-3 rounded-full ${aiActive ? 'bg-red-500 animate-pulse box-shadow-red' : 'bg-green-500 box-shadow-green'}`}></span>
-                bolchal.ai Ghost
-            </h3>
+        <div className="flex flex-col h-full w-full text-white">
+            {/* Header — matches Chat "Messages" header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
+                <h3 className="text-base font-semibold flex items-center gap-2">
+                    <span className={`w-2.5 h-2.5 rounded-full ${aiActive ? 'bg-red-500 animate-pulse' : 'bg-green-500'}`}></span>
+                    AI Ghost Controls
+                </h3>
+            </div>
 
-            <div className="space-y-5">
-                <p className="text-sm text-gray-600 leading-relaxed">
+            {/* Body */}
+            <div className="flex-1 overflow-y-auto p-5 space-y-5">
+                <p className="text-sm text-gray-400 leading-relaxed">
                     {aiActive
                         ? "AI is active and connected! It has taken over your microphone. You can leave your camera on."
                         : "Have the AI proxy seamlessly take over your identity to listen and speak securely during this meeting."}
@@ -219,9 +223,9 @@ export default function AiControlPanel({ roomName, userName }: AiControlPanelPro
 
                 <button
                     onClick={toggleAi}
-                    className={`w-full py-3 px-4 rounded-xl font-semibold transition-all shadow-sm flex items-center justify-center gap-2 ${aiActive
-                        ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 hover:border-red-300'
-                        : 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white border border-teal-600 hover:from-cyan-700 hover:to-teal-700 hover:border-teal-700'
+                    className={`w-full py-3 px-4 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${aiActive
+                        ? 'bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30'
+                        : 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white border border-teal-600 hover:from-cyan-700 hover:to-teal-700'
                         }`}
                 >
                     {aiActive ? 'Disconnect AI Proxy' : 'Enable AI Takeover'}
@@ -229,28 +233,28 @@ export default function AiControlPanel({ roomName, userName }: AiControlPanelPro
 
                 <div className="relative py-2">
                     <div className="absolute inset-0 flex items-center">
-                        <span className="w-full border-t border-gray-200" />
+                        <span className="w-full border-t border-white/10" />
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-white px-3 text-gray-400 font-bold tracking-wider">Summary</span>
+                        <span className="bg-[rgba(15,23,42,0.85)] px-3 text-gray-500 font-bold tracking-wider">Summary</span>
                     </div>
                 </div>
 
                 <button
                     onClick={getSummary}
                     disabled={isSummaryLoading}
-                    className="w-full py-3 px-4 rounded-xl font-semibold bg-gray-50 border border-gray-200 text-gray-800 hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full py-3 px-4 rounded-xl font-semibold bg-white/[0.06] border border-white/10 text-gray-300 hover:bg-white/10 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                 >
-                    {isSummaryLoading && <Loader2 className="w-4 h-4 animate-spin text-gray-500" />}
+                    {isSummaryLoading && <Loader2 className="w-4 h-4 animate-spin text-gray-400" />}
                     Get Live Discussion Summary
                 </button>
 
                 {summary && (
-                    <div className="mt-2 p-4 bg-teal-50/50 rounded-xl border border-teal-100 text-sm max-h-60 overflow-y-auto shadow-inner">
-                        <h4 className="font-semibold text-teal-900 mb-2 flex items-center gap-1.5">
-                            <span className="text-teal-500">📝</span> Latest Notes
+                    <div className="mt-2 p-4 bg-teal-500/10 rounded-xl border border-teal-500/20 text-sm max-h-60 overflow-y-auto">
+                        <h4 className="font-semibold text-teal-400 mb-2 flex items-center gap-1.5">
+                            <span>📝</span> Latest Notes
                         </h4>
-                        <p className="whitespace-pre-wrap text-gray-700 leading-relaxed">{summary}</p>
+                        <p className="whitespace-pre-wrap text-gray-300 leading-relaxed">{summary}</p>
                     </div>
                 )}
             </div>
