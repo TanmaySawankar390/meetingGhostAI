@@ -6,12 +6,12 @@
         reverse_proxy backend:8000
     }
 
-    # 2. WebRTC LiveKit API and Signal Routes
+    # 2. WebRTC LiveKit API and Signal Routes (LiveKit runs on host network)
     @livekit {
         path /twirp/* /rtc*
     }
     handle @livekit {
-        reverse_proxy livekit:7880
+        reverse_proxy host.docker.internal:7880
     }
 
     # 3. Everything else hits the Next.js frontend
