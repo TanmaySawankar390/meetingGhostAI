@@ -1,0 +1,21 @@
+# Caddyfile automatically gets HTTPS via Let's Encrypt for the domain listed below
+
+{$DOMAIN:bolchal.duckdns.org} {
+    # 1. API route hits the backend container
+    handle_path /api/* {
+        reverse_proxy backend:8000
+    }
+
+    # 2. WebRTC LiveKit API and Signal Routes
+    @livekit {
+        path /twirp/* /rtc*
+    }
+    handle @livekit {
+        reverse_proxy livekit:7880
+    }
+
+    # 3. Everything else hits the Next.js frontend
+    handle {
+        reverse_proxy frontend:3000
+    }
+}
