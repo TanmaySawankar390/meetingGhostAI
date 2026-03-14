@@ -27,7 +27,7 @@ export default function AiControlPanel({ roomName, userName }: AiControlPanelPro
     useEffect(() => {
         async function checkAgentStatus() {
             try {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+                const API_URL = "";
                 const response = await fetch(`${API_URL}/api/meetings/agents`);
                 if (response.ok) {
                     const data = await response.json();
@@ -82,7 +82,7 @@ export default function AiControlPanel({ roomName, userName }: AiControlPanelPro
             });
 
             // 4. Connect to the WebSocket to receive AI Audio Bytes
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+            const API_URL = "";
             const wsUrl = API_URL.replace("http://", "ws://").replace("https://", "wss://");
             const ws = new WebSocket(`${wsUrl}/api/meetings/${roomName}/agent/stream/${encodeURIComponent(userName)}`);
             ws.binaryType = "arraybuffer";
@@ -160,7 +160,7 @@ export default function AiControlPanel({ roomName, userName }: AiControlPanelPro
     };
 
     const toggleAi = async () => {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+        const API_URL = "";
         try {
             if (aiActive) {
                 // Backend call
@@ -187,7 +187,7 @@ export default function AiControlPanel({ roomName, userName }: AiControlPanelPro
     };
 
     const getSummary = async () => {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+        const API_URL = "";
         setIsSummaryLoading(true);
         try {
             const res = await fetch(`${API_URL}/api/meetings/${roomName}/summary`);

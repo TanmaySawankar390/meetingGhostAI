@@ -24,7 +24,7 @@ function MeetingRoomContent() {
     useEffect(() => {
         async function getToken() {
             try {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+                const API_URL = ""; // Use relative path for Caddy reverse proxy
                 const response = await fetch(`${API_URL}/api/meetings/join`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

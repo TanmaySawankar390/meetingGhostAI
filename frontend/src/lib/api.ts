@@ -1,4 +1,8 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+// In the browser, point to the relative /api path (which Caddy proxies to the backend).
+// On the server (Next.js SSR) or local dev, use the full URL or fallback to localhost.
+const API_URL = typeof window !== "undefined" 
+    ? "" 
+    : (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000");
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8000";
 
 export interface Meeting {
