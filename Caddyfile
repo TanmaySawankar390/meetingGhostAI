@@ -1,8 +1,8 @@
 # Caddyfile automatically gets HTTPS via Let's Encrypt for the domain listed below
 
 {$DOMAIN:bolchal.duckdns.org} {
-    # 1. API route hits the backend container
-    handle_path /api/* {
+    # 1. API route hits the backend container (preserve full /api/... path)
+    handle /api/* {
         reverse_proxy backend:8000
     }
 
