@@ -29,12 +29,18 @@ services:
     restart: unless-stopped
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        INTERNAL_BACKEND_URL: http://backend:8000
+        INTERNAL_LIVEKIT_URL: http://livekit:7880
     ports:
       - "3000:3000"
     environment:
       - NEXT_PUBLIC_LIVEKIT_URL=ws://localhost:7880
       - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - INTERNAL_BACKEND_URL=http://backend:8000
+      - INTERNAL_LIVEKIT_URL=http://livekit:7880
     depends_on:
       - backend
     restart: unless-stopped

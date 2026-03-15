@@ -1,8 +1,8 @@
-// In the browser, point to the relative /api path (which Caddy proxies to the backend).
-// On the server (Next.js SSR) or local dev, use the full URL or fallback to localhost.
-const API_URL = typeof window !== "undefined" 
-    ? "" 
-    : (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000");
+import { AppConfig } from "@/config";
+
+// Both local and prod securely use relative routing for normal fetch calls
+const API_URL = AppConfig.API_URL;
+// WS routing logic remains dynamic because WebSockets do not support relative paths natively.
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8000";
 
 export interface Meeting {

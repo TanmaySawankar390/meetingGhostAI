@@ -7,6 +7,7 @@ import {
 } from '@livekit/components-react';
 import '@livekit/components-styles';
 import { Loader2 } from 'lucide-react';
+import { AppConfig } from "@/config";
 import AiControlPanel from '@/components/AiControlPanel';
 import CustomVideoConference from '@/components/CustomVideoConference';
 
@@ -74,7 +75,7 @@ function MeetingRoomContent() {
                 video={true}
                 audio={true}
                 token={token}
-                serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL || "ws://localhost:7880"}
+                serverUrl={AppConfig.LIVEKIT_URL}
                 data-lk-theme="default"
                 style={{ height: '100%', width: '100%', position: 'absolute', top: 0, left: 0 }}
                 onDisconnected={() => router.push(`/meet/end?room=${roomName}&name=${encodeURIComponent(userName)}`)}

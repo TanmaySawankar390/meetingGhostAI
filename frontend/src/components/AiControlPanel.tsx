@@ -82,8 +82,8 @@ export default function AiControlPanel({ roomName, userName }: AiControlPanelPro
             });
 
             // 4. Connect to the WebSocket to receive AI Audio Bytes
-            const API_URL = "";
-            const wsUrl = API_URL.replace("http://", "ws://").replace("https://", "wss://");
+            const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+            const wsUrl = `${protocol}//${window.location.host}`;
             const ws = new WebSocket(`${wsUrl}/api/meetings/${roomName}/agent/stream/${encodeURIComponent(userName)}`);
             ws.binaryType = "arraybuffer";
             wsRef.current = ws;
